@@ -29,7 +29,7 @@ const Categories = () => {
                     catagories.map((obj, i) =>
                         <Link to={`/category/${obj.name}`} key={i} >
                             <div
-                                className=" bg-fadegray rounded-md p-2 overflow-hidden hover:rotate-3 hover:scale-105 transition-all duration-200"
+                                className=" bg-fadegray rounded-md my-2 overflow-hidden hover:scale-105 transition-all duration-200"
                             >
                                 <img src={obj?.img} className="h-48 rounded-md object-cover w-full" alt="" />
                                 <p className="text-lg md:text-xl my-2 font-bold text-center">{obj.name}</p>

@@ -45,20 +45,7 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         let unSubscribe = onAuthStateChanged(auth, (user) => {
-            console.log("state changed!!!")
-            if (user) {
-                const loggedInUser = { email: user.email }
-                if (user?.email === 'admin@gmail.com') {
-                    user.role = 'admin'
-                    toast.success("Wellcome Admin!")
-                }
-                axios.post('/api/v1/jwt', loggedInUser)
-                    .then(() => { })
-                    .catch(() => {
-                        toast("Token Generation failed!")
-                    })
-            }
-
+            // console.log("state changed!!!")
             setUser(user)
             setLoading(false)
         })
