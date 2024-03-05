@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 
 const Categories = () => {
+
+
     const catagories = [
         {
             name: 'History',
@@ -27,7 +31,7 @@ const Categories = () => {
             <div className="grid grid-cols-1 px-4 md:grid-cols-4 gap-4">
                 {
                     catagories.map((obj, i) =>
-                        <Link to={`/category/${obj.name}`} key={i} >
+                        <Link to={`/category/${obj.name}`}  key={i} >
                             <div
                                 className=" bg-fadegray rounded-md my-2 overflow-hidden hover:scale-105 transition-all duration-200"
                             >

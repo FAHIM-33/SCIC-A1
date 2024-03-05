@@ -13,11 +13,10 @@ const SelectedCatrgory = () => {
         return res.data
     }
 
-    const { data, isLoading,  } = useQuery({
-        queryKey: ['selectedCatagory'],
+    const { data, isLoading } = useQuery({
+        queryKey: [`selectedCatagory-${category}`],
         queryFn: getBooks,
     })
-
 
     return (
         <section className="cont">
