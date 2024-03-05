@@ -69,10 +69,10 @@ input:focus {
 
 
 
-.active {
+/* .active {
     background-color: var(--color-crim);
     color: white;
-}
+} */
 
 .member {
     background-image: url('/Sprinkle.svg');
