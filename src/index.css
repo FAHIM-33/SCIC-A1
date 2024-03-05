@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,500;0,600;0,700;0,800;1,300&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+    /* For light */
+    :root {
+        --color-low: rgb(51, 51, 51);
+        --color-mid: rgb(34, 34, 34);
+        --color-high: rgb(17, 17, 17);
+        --color-crim: rgb(248, 0, 186); 
+        --color-background: rgb(255, 251, 196);
+        
+        /* ... */
+    }
+
+    :root[data-theme="dark"] {
+        --color-low: rgb(164, 164, 164);
+        --color-mid: rgb(202, 202, 202);
+        --color-high: rgb(238, 238, 238);
+        --color-background: rgb(33, 33, 33);
+    }
+}
+
+body {
+    background-color: rgb(255, 227, 194);
+    font-family: 'Poppins', sans-serif;
+    max-width: 2400px;
+    margin: 0 auto;
+}
+
+main {
+    min-height: 100vh;
+}
+
+.cont {
+    max-width: 1280px;
+    margin: 0rem auto;
+    padding: 3rem 0 1rem;
+
+}
+
+.cont h2 {
+    margin-bottom: 2rem;
+    font-size: 2.25rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+label {
+    font-size: 1.2rem;
+}
+
+input {
+    background-color: #8f8f8f2d;
+    border-radius: 6px;
+    width: 100%;
+    padding: 1rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+input:focus {
+    outline: 2px solid var(--color-crim);
+}
+
+
+
+.active {
+    background-color: var(--color-crim);
+    color: white;
+}
+
+.member {
+    background-image: url('/Sprinkle.svg');
+}
+
+nav a {
+    border-radius: 5px;
+    padding: 2px 8px;
+    color: var(--color-background);
+    transition: all 0.2s;
+}
+
+nav a:hover:not(.login) {
+    color: white;
+}
+
+.banner img {
+    height: 800px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.btn:not(.input-btn) {
+    /* border: 1px solid black; */
+    border-radius: 5px;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.btn:hover {
+    scale: 1.05;
+    box-shadow: 0px 0px 10px 0px black;
+}
+
+.btn:active {
+    scale: 1;
+    box-shadow: none;
+}
+
+button:disabled {
+    opacity: 0.5;
+}
+
+#borrow-modal {
+    transition: all 2s;
+}
+
+.loader {
+    border: 5px solid transparent;
+    border-top: 5px solid var(--color-crim);
+    border-bottom: 5px solid var(--color-mid);
+    margin: 6rem auto;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+    animation: spin infinite 1s;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.brr {
+    border: 1px solid red;
+}
+
+.brb {
+    border: 1px solid blue;
+}
+
+@media screen and (max-width:767px) {
+    .cont{
+        padding: 1rem 0 0.5rem;
+    }
+    .cont h2{
+        font-size: 2rem;
+    }
+    input{
+        padding: 0.5rem;
+    }
+    .banner img {
+        height: 400px;
+    }
+}
