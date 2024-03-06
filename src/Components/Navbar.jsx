@@ -31,9 +31,10 @@ const Navbar = () => {
 
     const links =
         <>
-            <NavLink to="/" onClick={() => setActive(1)} ><li>Home</li></NavLink>
-            <NavLink to="/add-books" onClick={() => setActive(2)} ><li>Add Books</li></NavLink>
-            <NavLink to="/borrowed" onClick={() => setActive(3)} ><li>Borrowed Books</li></NavLink>
+            <NavLink to="/"><li>Home</li></NavLink>
+            <NavLink to="/add-books" ><li>Add Books</li></NavLink>
+            <NavLink to="/borrowed" ><li>Borrowed Books</li></NavLink>
+            <NavLink to="/all-books" ><li>All</li></NavLink>
         </>
 
 

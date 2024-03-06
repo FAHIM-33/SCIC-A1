@@ -14,6 +14,10 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import Details from './pages/Details.jsx'
+import AllBooks from './pages/AllBooks.jsx'
+import Read from './pages/Read.jsx'
+import Update from './pages/Update.jsx'
 
 // Create a client
 const queryClient = new QueryClient()
@@ -32,8 +36,24 @@ const router = createBrowserRouter([{
       element: <AddBooks></AddBooks>
     },
     {
+      path: '/all-books',
+      element: <AllBooks></AllBooks>
+    },
+    {
       path: '/category/:category',
       element: <SelectedCatrgory></SelectedCatrgory>
+    },
+    {
+      path: '/details/:searchCategory/:id',
+      element: <Details></Details>
+    },
+    {
+      path: '/read/:id',
+      element: <Read></Read>
+    },
+    {
+      path: '/update/:id',
+      element: <Update></Update>
     },
     {
       path: '/login',

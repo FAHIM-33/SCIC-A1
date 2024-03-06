@@ -31,7 +31,7 @@ const SelectedCatrgory = () => {
                                 key={i}
                                 data={obj}
                             >
-                                <Link to={`/details/${obj._id}`}>
+                                <Link to={`/details/${category}/${obj._id}`}>
                                     <button className='btn mx-auto block bg-crim w-full py-1 md:py-2 text-white  md:text-xl'>Details</button>
                                 </Link>
                             </Card>)
