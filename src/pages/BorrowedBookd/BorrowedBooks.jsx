@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import useAxios from "../../Hooks/useAxios";
 import { AuthContext } from "../../Providers/AuthProvider";
 import BorrowCard from "./BorrowCard";
@@ -7,22 +7,27 @@ import { useQuery } from "@tanstack/react-query";
 
 const BorrowedBooks = () => {
     const axios = useAxios()
-    const { user } = useContext(AuthContext)
+    const { user, loading } = useContext(AuthContext)
+
+
 
     async function getAllBooks() {
         let res = await axios.get(`/api/v1/borrowed/?email=${user.email}`)
         return res.data
     }
 
+
     const { data, isLoading, refetch } = useQuery({
         queryKey: ['borrowedBooks'],
-        queryFn: getAllBooks
+        queryFn: getAllBooks,
+        enabled: !loading
     })
+
 
 
     if (isLoading) { return <Loading></Loading> }
 
-    if (data.length === 0) { return <section className="cont text-red-600"><h2>No Books are borrowed</h2></section> }
+    if (!isLoading && data?.length === 0) { return <section className="cont text-red-600"><h2>No Books are borrowed</h2></section> }
 
     return (
         <section className="cont">

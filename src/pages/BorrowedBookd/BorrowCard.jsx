@@ -23,6 +23,7 @@ const BorrowCard = ({ borrowData, refetch }) => {
             })
     }, [axios, productID])
 
+    console.log(data)
 
     // 
     function decreaseQTY(borrowedBookID, quantity) {
