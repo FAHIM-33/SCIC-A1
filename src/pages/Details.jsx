@@ -1,19 +1,28 @@
-import { useQueryClient } from "@tanstack/react-query";
+// import { useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { BiCategoryAlt, BiSolidStar, BiStar } from 'react-icons/bi';
 import Rating from "react-rating";
 import Modal from "./Modal/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../Components/Loading";
+import useAxios from "../Hooks/useAxios";
 
 const Details = () => {
-    let { id, searchCategory } = useParams()
-    // const axios = useAxios()
+    let { id } = useParams()
+    const [data, setData] = useState({})
+    const axios = useAxios()
     const [open, setOpen] = useState(false)
-    const queryClient = useQueryClient()
+    // const queryClient = useQueryClient()
 
-    const dataArr = queryClient.getQueryData([`selectedCatagory-${searchCategory}`])
-    const data = dataArr?.find(obj => obj._id === id)
+    // const dataArr = queryClient.getQueryData([`selectedCatagory-${searchCategory}`])
+    // let queryData = dataArr?.find(obj => obj._id === id)
+
+    useEffect(() => {
+        axios.get(`/api/v1/book/${id}`)
+            .then(res => setData(res.data))
+    }, [axios, id])
+
+
 
     if (!data) { return <Loading></Loading> }
 
@@ -26,7 +35,7 @@ const Details = () => {
             <div className='bg-fadegray relative flex md:flex-row rounded-bl-2xl overflow-hidden'>
                 <p className='mb-4 md:mb-8 absolute top-0 right-0 rounded-bl-lg rounded-sm w-fit bg-high text-background font-bold px-4 py-1'><BiCategoryAlt className='inline-flex mr-1 text-crim text-base md:text-xl'></BiCategoryAlt>{category}</p>
                 <div className="col-span-3">
-                    <img src={img} className=' mx-auto md:h-[90vh] block object-cover' alt="img of books" />
+                    <img src={img} className='h-[300px] mx-auto md:h-[70vh] max-w-[600px] block object-cover' alt="img of books" />
 
                 </div>
 
@@ -48,7 +57,7 @@ const Details = () => {
 
                     <div className="mt-8 md:mt-12">
                         <p className="text-lg md:text-2xl font-semibold">Plot:</p>
-                        <p>{description.slice(0, 200)}<span className="text-crim">...Read more</span></p>
+                        <p>{description?.slice(0, 200)}<span className="text-crim">...Read more</span></p>
                     </div>
                     <button
                         disabled={qty < 1 ? true : false}

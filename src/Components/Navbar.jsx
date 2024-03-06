@@ -39,7 +39,7 @@ const Navbar = () => {
 
 
     return (
-        <nav>
+        <nav> 
             {/* For Desktop */}
             <div className="hidden md:flex bg-mid py-1 items-center px-1">
                 <div className="flex flex-1 items-center gap-2">
