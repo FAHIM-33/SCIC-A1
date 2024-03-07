@@ -1,33 +1,39 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
 import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
 import { CiMenuFries } from "react-icons/ci";
-// import MobileSidebar from "./MobileSidebar";
+import MobileSidebar from "./MobileSidebar";
 
 const Navbar = () => {
-    const [theme, setTheme] = useState("")
+    const [theme, setTheme] = useState('')
     const { user, loading, logOut } = useContext(AuthContext)
     const [open, setOpen] = useState(false)
-    const [active, setActive] = useState(1)
-
+    // const [active, setActive] = useState(1)
 
     const htmlElem = document.documentElement;
+    useEffect(() => {
+        let initial = localStorage.getItem('theme')
+        htmlElem.setAttribute("data-theme", initial)
+        setTheme(initial)
+    }, [htmlElem])
     function handleTheme() {
         if (theme == 'dark') {
             htmlElem.setAttribute("data-theme", "")
+            localStorage.setItem('theme', '')
             setTheme('')
         }
         if (theme != "dark") {
             htmlElem.setAttribute("data-theme", 'dark')
+            localStorage.setItem('theme', 'dark')
             setTheme('dark')
         }
     }
 
 
-    // function handleMobileSidebar() {
-    //     setOpen(!open)
-    // }
+    function handleMobileSidebar() {
+        setOpen(!open)
+    }
 
     const links =
         <>
@@ -39,7 +45,7 @@ const Navbar = () => {
 
 
     return (
-        <nav> 
+        <nav>
             {/* For Desktop */}
             <div className="hidden md:flex bg-mid py-1 items-center px-1">
                 <div className="flex flex-1 items-center gap-2">
@@ -78,7 +84,7 @@ const Navbar = () => {
 
 
             {/* For Mobile */}
-            {/* <div className="md:hidden flex bg-mid py-1 items-center px-1">
+            <div className="md:hidden flex bg-mid py-1 items-center px-1">
                 <div className="flex flex-1 items-center gap-1 ">
                     <img src="/logo.png" className="w-8" alt="broken logo" />
                     <p className="text-lg font-semibold text-crim">Ocean Books</p>
@@ -108,7 +114,7 @@ const Navbar = () => {
                         <Link className="login" to="/login"><button className="px-2 py-1 text-high bg-background btn h-full w-fit">Login</button></Link>
                 }
 
-            </div> */}
+            </div>
         </nav>
     );
 };

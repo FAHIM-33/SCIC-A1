@@ -1,13 +1,17 @@
 import { useContext } from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Providers/AuthProvider';
 import toast from 'react-hot-toast';
 
 
 const Login = () => {
     let { login, googleLogin } = useContext(AuthContext)
+    const location = useLocation()
     let nav = useNavigate()
+
+
+
     const handleLogin = (e) => {
         e.preventDefault()
         let email = e.target.email.value
@@ -15,7 +19,11 @@ const Login = () => {
         let toastID = toast.loading("Loggin in...")
         login(email, password)
             .then(() => {
-                nav('/')
+                location?.state ?
+                    nav(location.state.from)
+                    :
+                    nav('/')
+
                 toast.success("Login Successful", { id: toastID })
             })
             .catch((error) => {
@@ -27,11 +35,14 @@ const Login = () => {
         let toastID = toast.loading("Logging in with Google")
         googleLogin()
             .then(() => {
-                nav('/')
-                toast.success("Logged in with Google", {id: toastID})
+                location?.state ?
+                    nav(location.state.from)
+                    :
+                    nav('/')
+                toast.success("Logged in with Google", { id: toastID })
             })
             .catch(() => {
-                toast.error("Failed to login with Google", {id: toastID})
+                toast.error("Failed to login with Google", { id: toastID })
             })
     }
 

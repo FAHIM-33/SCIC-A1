@@ -39,7 +39,6 @@ const AddBooks = () => {
             qty,
         }
 
-        console.log(user.email)
         axios.post(`/api/v1/addBook/?email=${user.email}`, book)
             .then(res => {
                 console.log(res.data)
@@ -78,7 +77,7 @@ const AddBooks = () => {
                     <div className="p-4 lg:p-8">
                         <label htmlFor="qty">Quantity:</label>
                         <br />
-                        <input type="text" placeholder="00" name="qty" className="" />
+                        <input type="text" placeholder="00" defaultValue={0} name="qty" className="" />
                     </div>
 
                     <div className="p-4 lg:p-8">

@@ -19,6 +19,7 @@ import AllBooks from './pages/AllBooks.jsx'
 import Read from './pages/Read.jsx'
 import Update from './pages/Update.jsx'
 import BorrowedBooks from './pages/BorrowedBookd/BorrowedBooks.jsx'
+import PrivateRoute from './pages/PrivateRoute.jsx'
 
 // Create a client
 const queryClient = new QueryClient()
@@ -58,7 +59,7 @@ const router = createBrowserRouter([{
     },
     {
       path: 'borrowed',
-      element: <BorrowedBooks></BorrowedBooks>
+      element: <PrivateRoute><BorrowedBooks></BorrowedBooks></PrivateRoute>
     },
     {
       path: '/login',

@@ -15,7 +15,7 @@ const Update = () => {
     const data = query.find(obj => obj._id === id)
 
     const { name, img, authorName, qty, rating, category } = data
-    console.log(data)
+
 
     function handleUpdate(e) {
         e.preventDefault()
@@ -28,6 +28,7 @@ const Update = () => {
         let newrating = form.rating.value
         let newqty = form.qty.value
 
+        
         newqty *= 1
         newrating *= 1
 

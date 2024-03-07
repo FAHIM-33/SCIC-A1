@@ -11,9 +11,10 @@
         --color-low: rgb(51, 51, 51);
         --color-mid: rgb(34, 34, 34);
         --color-high: rgb(17, 17, 17);
-        --color-crim: rgb(248, 0, 186); 
+        --color-crim: rgb(248, 0, 186);
         --color-background: rgb(255, 251, 196);
-        
+        --fade: rgba(143, 143, 143, 0.176);
+
         /* ... */
     }
 
@@ -85,8 +86,8 @@ nav a {
     transition: all 0.2s;
 }
 
-nav a:hover:not(.login) {
-    color: white;
+nav a:hover:not(.login):not(.active) {
+    color: var(--color-crim);
 }
 
 .banner img {
@@ -150,15 +151,18 @@ button:disabled {
 }
 
 @media screen and (max-width:767px) {
-    .cont{
+    .cont {
         padding: 1rem 0 0.5rem;
     }
-    .cont h2{
+
+    .cont h2 {
         font-size: 2rem;
     }
-    input{
+
+    input {
         padding: 0.5rem;
     }
+
     .banner img {
         height: 400px;
     }
