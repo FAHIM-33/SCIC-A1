@@ -20,6 +20,8 @@ import Read from './pages/Read.jsx'
 import Update from './pages/Update.jsx'
 import BorrowedBooks from './pages/BorrowedBookd/BorrowedBooks.jsx'
 import PrivateRoute from './pages/PrivateRoute.jsx'
+import { Provider } from 'react-redux'
+import { store } from './redux/store/store.js'
 
 // Create a client
 const queryClient = new QueryClient()
@@ -47,7 +49,7 @@ const router = createBrowserRouter([{
     },
     {
       path: '/details/:searchCategory/:id',
-      element: <Details></Details>
+      element: <PrivateRoute><Details></Details></PrivateRoute>
     },
     {
       path: '/read/:id',
@@ -55,7 +57,7 @@ const router = createBrowserRouter([{
     },
     {
       path: '/update/:id',
-      element: <Update></Update>
+      element: <PrivateRoute><Update></Update></PrivateRoute>
     },
     {
       path: 'borrowed',
@@ -75,12 +77,14 @@ const router = createBrowserRouter([{
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <RouterProvider router={router}>
-          <MainLayout></MainLayout>
-        </RouterProvider>
-      </AuthProvider>
-    </QueryClientProvider>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <RouterProvider router={router}>
+            <MainLayout></MainLayout>
+          </RouterProvider>
+        </AuthProvider>
+      </QueryClientProvider>
+    </Provider>
   </React.StrictMode>,
 )

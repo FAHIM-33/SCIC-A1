@@ -22,7 +22,7 @@ const Banner = () => {
     useEffect(() => {
         const intervalID = setInterval(() => {
             window.swiper.slideNext();
-        }, 2000);
+        }, 4000);
         return () => { clearInterval(intervalID) }
     }, [])
 

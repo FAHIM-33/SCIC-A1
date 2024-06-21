@@ -1,24 +1,16 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import useAxios from "../Hooks/useAxios";
+import { useQueryClient } from "@tanstack/react-query";
 import Loading from "../Components/Loading";
 import Card from "../Components/Card";
 import { Link } from "react-router-dom";
 import { FaFilter } from 'react-icons/fa';
-import { useContext, useState } from "react";
-import { AuthContext } from "../Providers/AuthProvider";
+import { useState } from "react";
+import { useGetAllBooksQuery } from "../redux/query/booksApi";
 
- 
+
 
 const AllBooks = () => {
-    const axios = useAxios()
     const queryClient = useQueryClient()
     const [isAvailableOnly, setIsAvailableOnly] = useState(false)
-    const { user } = useContext(AuthContext)
-
-    async function getAllBooks() {
-        let res = await axios.get(`/api/v1/all-books/?email=${user.email}`)
-        return res.data
-    }
 
     function handleFilter(arr) {
         const newarr = arr.filter(obj => obj.qty > 0)
@@ -27,11 +19,9 @@ const AllBooks = () => {
     }
 
 
+    const { data, isLoading } = useGetAllBooksQuery()
 
-    let { data, isLoading, refetch } = useQuery({
-        queryKey: ['AllData'],
-        queryFn: getAllBooks
-    })
+
     if (isLoading) { return <Loading></Loading> }
 
 
@@ -52,7 +42,7 @@ const AllBooks = () => {
                     data?.map(obj => <Card
                         key={obj._id}
                         data={obj}
-                        refetch={refetch}
+                        // refetch={refetch}
                     >
                         <Link to={`/update/${obj._id}`}>
                             <button className='btn mx-auto block bg-crim w-full py-1 md:py-2 text-white  md:text-xl'>Update</button>

@@ -5,51 +5,70 @@ import useAxios from '../../Hooks/useAxios';
 import Loading from '../../Components/Loading';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { useGetOneBookQuery } from '../../redux/query/booksApi';
+import { useDeleteBorrowedMutation, useReturnBorrowedBookMutation } from '../../redux/query/BorrowApi';
 
 
-const BorrowCard = ({ borrowData, refetch }) => {
+const BorrowCard = ({ borrowData, user }) => {
     const { _id, productID, returnDate, borrowDate } = borrowData
     const axios = useAxios()
-    const [data, setData] = useState()
+
+    const [returnBorrowedBook] = useReturnBorrowedBookMutation()
+    const [deleteborrowed] = useDeleteBorrowedMutation()
+
+    // const [data, setData] = useState()
+    // useEffect(() => {
+    //     axios.get(`/api/v1/Abook/${productID}`)
+    //         .then(res => {
+    //             setData(res.data)
+    //         })
+    //         .catch((err) => {
+    //             console.log(err)
+    //         })
+    // }, [axios, productID])
+
+    // NOTE : there are two types of data loading. One is borrow data one is the book data.
+    const { data, isloading } = useGetOneBookQuery(productID)
 
 
-    useEffect(() => {
-        axios.get(`/api/v1/Abook/${productID}`)
-            .then(res => {
-                setData(res.data)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }, [axios, productID])
 
+    // function decreaseQTY(borrowedBookID, quantity) {
+    //     let toastID = toast.loading("Returning Book...")
+    //     axios.patch('/api/v1/update-quantity/?operation=increase', { qty: quantity, productID: borrowedBookID })
+    //         .then(res => {
+    //             console.log("Entered Patch of increase")
+    //             console.log(res.data)
+    //             if (res.data.modifiedCount > 0) {
+    //                 axios.delete(`/api/v1/return-borrowed/${_id}`)
+    //                     .then(res => {
+    //                         console.log("Delete entered..")
+    //                         if (res.data.deletedCount > 0) {
+    //                             toast.success("Returned Book Successfully", { id: toastID })
+    //                             // refetch()
+    //                         }
+    //                     })
+    //                     .catch(() => {
+    //                         toast.error("Returned, But coultn't delete form borrowed")
+    //                     })
+    //             }
 
+    //         })
+    //         .catch(() => {
+    //             toast.error("Failed to return", { id: toastID })
+    //         })
+    // }
 
-    // 
-    function decreaseQTY(borrowedBookID, quantity) {
+    async function decreaseQTY(borrowedBookID, quantity) {
         let toastID = toast.loading("Returning Book...")
-        axios.patch('/api/v1/update-quantity/?operation=increase', { qty: quantity, productID: borrowedBookID })
-            .then(res => {
-                console.log("Entered Patch of increase")
-                console.log(res.data)
-                if (res.data.modifiedCount > 0) {
-                    axios.delete(`/api/v1/return-borrowed/${_id}`)
-                        .then(res => {
-                            console.log("Delete entered..")
-                            if (res.data.deletedCount > 0) {
-                                toast.success("Returned Book Successfully", { id: toastID })
-                                refetch()
-                            }
-                        })
-                        .catch(() => {
-                            toast.error("Returned, But coultn't delete form borrowed")
-                        })
-                }
+        try {
+            await returnBorrowedBook({ data: { qty: quantity, productID: borrowedBookID }, email: user.email })
 
-            })
-            .catch(() => {
-                toast.error("Failed to return", { id: toastID })
-            })
+            await deleteborrowed({ id: _id, email: user.email })
+            toast.success("Returned Book Successfully", { id: toastID })
+        }
+        catch {
+            toast.error("Something wrong")
+        }
 
     }
 

@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import useAxios from "../Hooks/useAxios";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
+import { useGetAllBooksQuery } from "../redux/query/booksApi";
 
 
 const Update = () => {
@@ -10,9 +11,10 @@ const Update = () => {
     let nav = useNavigate()
     const queryClient = useQueryClient()
 
-    const query = queryClient.getQueryData(['AllData'])
+    // const query = queryClient.getQueryData(['AllData'])
+    const query = useGetAllBooksQuery()
 
-    const data = query.find(obj => obj._id === id)
+    const data = query?.data.find(obj => obj._id === id)
 
     const { name, img, authorName, qty, rating, category } = data
 
@@ -28,7 +30,7 @@ const Update = () => {
         let newrating = form.rating.value
         let newqty = form.qty.value
 
-        
+
         newqty *= 1
         newrating *= 1
 
@@ -64,7 +66,7 @@ const Update = () => {
 
     return (
         <div className="pb-12 cont">
-            <h2 className="text-4xl text-center mt-12 font-semibold text-high">Update <span className="text-crim">Book()</span></h2>
+            <h2 className="text-4xl text-center mt-12 font-semibold text-high">Update <span className="text-crim">Book</span></h2>
             <form onSubmit={handleUpdate} className="border border-low lg:p-4 bg-background rounded-lg m-4 ">
                 <div className="grid grid-cols-1 md:grid-cols-2">
 

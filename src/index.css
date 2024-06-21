@@ -39,7 +39,7 @@ main {
 
 .cont {
     max-width: 1280px;
-    margin: 0rem auto;
+    margin: 1rem auto;
     padding: 3rem 0 1rem;
 
 }
@@ -50,6 +50,7 @@ main {
     text-align: center;
     font-weight: 500;
 }
+
 
 label {
     font-size: 1.2rem;
@@ -71,7 +72,7 @@ input:focus {
 
 
 .active {
-    background-color: var(--color-crim);
+    /* background-color: var(--color-crim); */
     color: white;
 }
 
@@ -98,7 +99,7 @@ nav a:hover:not(.login):not(.active) {
 
 .btn:not(.input-btn) {
     /* border: 1px solid black; */
-    border-radius: 5px;
+    border-radius: 0 0 0 10px;
     transition: all 0.2s;
     font-weight: 500;
 }
@@ -110,8 +111,8 @@ nav a:hover:not(.login):not(.active) {
 
 .btn:active {
     scale: 1;
-    box-shadow: none;
-}
+    box-shadow: none; 
+} 
 
 button:disabled {
     opacity: 0.5;

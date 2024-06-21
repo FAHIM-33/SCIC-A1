@@ -6,14 +6,18 @@ import { DateTime } from "luxon";
 import pt from 'prop-types'
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
+import Loading from "../../Components/Loading.jsx";
+import { useDecreaseQtyMutation } from "../../redux/query/BorrowApi.js";
 
 
 const Modal = ({ data, setOpen }) => {
     const axios = useAxios()
-    const queryClient = useQueryClient()
-    const { user } = useContext(AuthContext)
+    const { user, loading } = useContext(AuthContext)
     const nav = useNavigate()
+    const [decreaseQty] = useDecreaseQtyMutation()
+
+
+    if (loading) { return <Loading></Loading> }
 
     function dateFormat(date) {
         return DateTime.fromISO(date).toLocaleString({
@@ -23,16 +27,22 @@ const Modal = ({ data, setOpen }) => {
         })
     }
 
-    function decreaseQTY(id, quantity) {
-        axios.patch('/api/v1/update-quantity/?operation=decrease', { qty: quantity, productID: id })
-            .then(() => {
-                // refetch()
-                queryClient.invalidateQueries('selectedCatagory')
-            })
-            .catch(() => {
-                console.log('Failed Patch')
-            })
+    // function decreaseQTY(id, quantity) {
+    //     axios.patch('/api/v1/update-quantity/?operation=decrease', { qty: quantity, productID: id })
+    //         .then(() => {
+    //             // refetch()
+    //             queryClient.invalidateQueries('selectedCatagory')
+    //         })
+    //         .catch(() => {
+    //             console.log('Failed Patch')
+    //         })
+    // }
+
+    function handleDecreaseQTY(id, quantity) {
+        decreaseQty({ data: { qty: quantity, productID: id } })
     }
+
+
 
 
     function handleBorrow(e) {
@@ -56,9 +66,12 @@ const Modal = ({ data, setOpen }) => {
         axios.post('/api/v1/borrow-book', body)
             .then(res => {
                 if (res?.data?.exists) { toast.error("Already Borrowed", { id: toastID }) }
+                else if (!res?.data?.available) { toast.error("Not available", { id: toastID }) }
                 if (res?.data?.acknowledged) {
                     nav(-1)
-                    decreaseQTY(data._id, data.qty)
+                    // decreaseQTY(data._id, data.qty)
+                    // after REDUX:
+                    handleDecreaseQTY(data._id, data.qty)
                     toast.success("Borrowed Successfully", { id: toastID })
                 }
             })

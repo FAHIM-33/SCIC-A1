@@ -1,6 +1,7 @@
 import pt from 'prop-types'
 import { BiCategoryAlt, BiSolidStar, BiStar } from 'react-icons/bi';
 import Rating from 'react-rating';
+import { Link } from 'react-router-dom';
 
 
 const Card = ({ data, children }) => {
@@ -20,7 +21,7 @@ const Card = ({ data, children }) => {
                 <p className=" mb-4 md:mb-8 text-sm md:text-base font-medium">Quantity: {qty}</p>
                 <Rating
                     className='text-2xl md:text-3xl text-crim'
-                    
+
                     initialRating={rating}
                     emptySymbol={<span className="icon-text"><BiStar></BiStar></span>}
                     fullSymbol={<BiSolidStar className=''></BiSolidStar>}
@@ -28,7 +29,9 @@ const Card = ({ data, children }) => {
                 <div className='flex-1'></div>
                 {/* Details Button */}
                 {children}
-                <p className='absolute top-0 right-0 rounded-bl-md bg-high text-background text-sm md:text-base font-bold px-2 md:px-4 py-[1px] md:py-1'><BiCategoryAlt className='inline-flex mr-1 text-crim text-xl'></BiCategoryAlt>{category}</p>
+                <Link to={`/category/${category}`}>
+                    <p className='absolute top-0 right-0 rounded-bl-md bg-high text-background text-sm md:text-base font-bold px-2 md:px-4 py-[1px] md:py-1'><BiCategoryAlt className='inline-flex mr-1 text-crim text-xl'></BiCategoryAlt>{category}</p>
+                </Link>
             </div>
         </div>
     );

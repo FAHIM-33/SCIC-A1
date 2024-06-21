@@ -1,7 +1,8 @@
 
 const Importance = () => {
     return (
-        <article className="cont">
+        <div className="bg-fadegray ">
+        <article className="cont p-2">
             <h2>Importance of Reading</h2>
 
             <div className=" md:flex rounded-bl-xl overflow-hidden">
@@ -19,6 +20,7 @@ const Importance = () => {
                 </div>
             </div>
         </article>
+        </div>
     );
 };
 

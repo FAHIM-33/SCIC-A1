@@ -3,28 +3,25 @@ import { Link, useParams } from "react-router-dom";
 import { BiCategoryAlt, BiSolidStar, BiStar } from 'react-icons/bi';
 import Rating from "react-rating";
 import Modal from "./Modal/Modal";
-import { useEffect, useState } from "react";
-import Loading from "../Components/Loading";
-import useAxios from "../Hooks/useAxios";
+import { useState } from "react";
+import { useGetCategoryBookQuery } from "../redux/query/booksApi";
 
 const Details = () => {
-    let { id } = useParams()
-    const [data, setData] = useState({})
-    const axios = useAxios()
+    let { id, searchCategory } = useParams()
+    // const [data, setData] = useState({})
+    // const axios = useAxios()
     const [open, setOpen] = useState(false)
-    // const queryClient = useQueryClient()
 
     // const dataArr = queryClient.getQueryData([`selectedCatagory-${searchCategory}`])
-    // let queryData = dataArr?.find(obj => obj._id === id)
+    const dataArr = useGetCategoryBookQuery(searchCategory)
 
-    useEffect(() => {
-        axios.get(`/api/v1/book/${id}`)
-            .then(res => setData(res.data))
-    }, [axios, id])
+    let data = dataArr?.data?.find(obj => obj._id === id)
+    // setData(queryData)
 
-
-
-    if (!data) { return <Loading></Loading> }
+    // useEffect(() => {
+    //         axios.get(`/api/v1/book/${id}`)
+    //             .then(res => setData(res.data))
+    // }, [axios, id, data])
 
 
     const { img, name, authorName, category, rating, description, qty } = data
