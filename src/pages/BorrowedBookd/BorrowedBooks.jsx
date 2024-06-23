@@ -1,14 +1,11 @@
 import { useContext } from "react";
-import useAxios from "../../Hooks/useAxios";
 import { AuthContext } from "../../Providers/AuthProvider";
 import BorrowCard from "./BorrowCard";
 import Loading from "../../Components/Loading";
-import { useQuery } from "@tanstack/react-query";
 import { useGetBorrowedBooksQuery } from "../../redux/query/BorrowApi";
 
 
 const BorrowedBooks = () => {
-    const axios = useAxios()
     const { user, loading } = useContext(AuthContext)
 
     const { data, isLoading } = useGetBorrowedBooksQuery(user.email)
@@ -28,10 +25,7 @@ const BorrowedBooks = () => {
     // })
 
 
-
-
-
-    if (isLoading) { return <Loading></Loading> }
+    if (isLoading || loading) { return <Loading></Loading> }
 
     if (!isLoading && data?.length === 0) { return <section className="cont text-red-600"><h2>No Books are borrowed</h2></section> }
 
@@ -44,7 +38,6 @@ const BorrowedBooks = () => {
                         key={obj._id}
                         borrowData={obj}
                         user={user}
-                    // refetch={refetch}
                     ></BorrowCard>)
                 }
             </section>

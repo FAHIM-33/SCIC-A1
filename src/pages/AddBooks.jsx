@@ -1,14 +1,14 @@
 
 import { useContext } from "react";
-import useAxios from "../Hooks/useAxios";
 import toast from "react-hot-toast";
 import { AuthContext } from "../Providers/AuthProvider";
+import { useAddBookMutation } from "../redux/query/booksApi";
 
 const AddBooks = () => {
-    const axios = useAxios()
     const { user } = useContext(AuthContext)
+    const [addBook] = useAddBookMutation()
 
-    function handleAdd(e) {
+    async function handleAdd(e) {
         e.preventDefault()
         let form = e.target;
         let name = form.name.value;
@@ -39,17 +39,26 @@ const AddBooks = () => {
             qty,
         }
 
-        axios.post(`/api/v1/addBook/?email=${user.email}`, book)
-            .then(res => {
-                console.log(res.data)
-                toast.success("Added succesfully", { id: toastID })
-            })
-            .catch(err => {
-                console.log(err)
-                toast.error("Failed to add book", { id: toastID })
-            })
+        //     axios.post(`/api/v1/addBook/?email=${user.email}`, book)
+        //         .then(res => {
+        //             console.log(res.data)
+        //             toast.success("Added succesfully", { id: toastID })
+        //         })
+        //         .catch(err => {
+        //             console.log(err)
+        //             toast.error("Failed to add book", { id: toastID })
+        //         })
 
+
+        try {
+        await addBook({ book: book, email: user.email }).unwrap()
+            toast.success("Added succesfully", { id: toastID })
+        }
+        catch {
+            toast.error("Failed to add book", { id: toastID })
+        }
     }
+
 
     return (
         <div className="cont pb-12 bg-background">

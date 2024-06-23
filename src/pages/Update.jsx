@@ -1,23 +1,27 @@
 import { useNavigate, useParams } from "react-router-dom";
-import useAxios from "../Hooks/useAxios";
+// import useAxios from "../Hooks/useAxios";
 import toast from "react-hot-toast";
-import { useQueryClient } from "@tanstack/react-query";
-import { useGetAllBooksQuery } from "../redux/query/booksApi";
+// import { useQueryClient } from "@tanstack/react-query";
+import { useGetAllBooksQuery, useUpdateBookMutation } from "../redux/query/booksApi";
+import Loading from "../Components/Loading";
 
 
 const Update = () => {
     const { id } = useParams()
-    const axios = useAxios()
+    // const axios = useAxios()
     let nav = useNavigate()
-    const queryClient = useQueryClient()
+    // const queryClient = useQueryClient()
+    const [updateBook] = useUpdateBookMutation()
 
     // const query = queryClient.getQueryData(['AllData'])
-    const query = useGetAllBooksQuery()
 
-    const data = query?.data.find(obj => obj._id === id)
+    const { data: query, isLoading } = useGetAllBooksQuery()
+
+    const data = query?.find(obj => obj._id === id)
+
+    if (isLoading) { return <Loading></Loading> }
 
     const { name, img, authorName, qty, rating, category } = data
-
 
     function handleUpdate(e) {
         e.preventDefault()
@@ -50,19 +54,32 @@ const Update = () => {
             qty: newqty,
         }
 
-        axios.put(`/app/v1/update/${id}`, newBook)
-            .then(res => {
-                res.data?.modifiedCount &&
-                    queryClient.refetchQueries(['AllData'])
+        // axios.put(`/app/v1/update/${id}`, newBook)
+        //     .then(res => {
+        //         res.data?.modifiedCount &&
+        //             queryClient.refetchQueries(['AllData'])
+        //         toast.success("Updated Successfully", { id: toastID })
+        //         nav(-1)
+        //     })
+        //     .catch(err => {
+        //         console.log(err)
+        //         toast.error("Failed to update", { id: toastID })
+        //     })
+
+
+        updateBook({ book: newBook, id: id }).unwrap()
+            .then(() => {
                 toast.success("Updated Successfully", { id: toastID })
                 nav(-1)
             })
-            .catch(err => {
-                console.log(err)
+            .catch(() => {
                 toast.error("Failed to update", { id: toastID })
             })
 
+
     }
+
+
 
     return (
         <div className="pb-12 cont">

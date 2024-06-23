@@ -8,7 +8,7 @@ const borrowApi = baseApi.injectEndpoints({
         }),
 
         returnBorrowedBook: builder.mutation({
-            query: ({ data, email }) => ({
+            query: ({ data }) => ({
                 url: '/api/v1/update-quantity/?operation=increase',
                 method: 'PATCH',
                 body: data
@@ -26,7 +26,7 @@ const borrowApi = baseApi.injectEndpoints({
         }),
 
         deleteBorrowed: builder.mutation({
-            query: ({ id, email }) => ({
+            query: ({ id }) => ({
                 url: `/api/v1/return-borrowed/${id}`,
                 method: 'DELETE'
             }),

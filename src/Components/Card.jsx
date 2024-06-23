@@ -18,7 +18,7 @@ const Card = ({ data, children }) => {
                 <div className='flex-1'></div>
                 <p className='text-xl md:text-2xl font-semibold border-l-2 border-crim pl-1'>{name}</p>
                 <p className='mb-2 md:mb-4 text-xs md:text-sm mt-2'>by <span className='font-medium  md:text-lg'> {authorName}</span></p>
-                <p className=" mb-4 md:mb-8 text-sm md:text-base font-medium">Quantity: {qty}</p>
+                <p className={`mb-4 md:mb-8 text-sm md:text-base font-medium ${qty===0?'text-red-600':""}`}>Quantity: {qty}</p>
                 <Rating
                     className='text-2xl md:text-3xl text-crim'
 

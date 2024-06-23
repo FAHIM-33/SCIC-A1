@@ -19,9 +19,25 @@ const booksApi = baseApi.injectEndpoints({
             providesTags: (result, error, category) => [{ type: "category-book", id: category }]
 
         }),
+        addBook: builder.mutation({
+            query: ({book, email}) => ({
+                url: `/api/v1/addBook/?email=${email}`,
+                method: 'POST',
+                body: book
+            }),
+            invalidatesTags: ['all-books'],
+        }),
+        updateBook: builder.mutation({
+            query: ({book, id}) => ({
+                url: `/app/v1/update/${id}`,
+                method: 'PUT',
+                body: book
+            }),
+            invalidatesTags: ['all-books'],
+        })
 
 
     })
 })
 
-export const { useGetAllBooksQuery, useGetCategoryBookQuery, useGetOneBookQuery } = booksApi; 
+export const { useGetAllBooksQuery, useGetCategoryBookQuery, useGetOneBookQuery, useAddBookMutation , useUpdateBookMutation} = booksApi; 

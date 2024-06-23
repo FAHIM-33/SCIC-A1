@@ -1,7 +1,6 @@
+/* eslint-disable react/prop-types */
 import pt from 'prop-types'
-import { useEffect, useState } from 'react';
 import { BiCategoryAlt } from 'react-icons/bi';
-import useAxios from '../../Hooks/useAxios';
 import Loading from '../../Components/Loading';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -11,7 +10,6 @@ import { useDeleteBorrowedMutation, useReturnBorrowedBookMutation } from '../../
 
 const BorrowCard = ({ borrowData, user }) => {
     const { _id, productID, returnDate, borrowDate } = borrowData
-    const axios = useAxios()
 
     const [returnBorrowedBook] = useReturnBorrowedBookMutation()
     const [deleteborrowed] = useDeleteBorrowedMutation()
@@ -28,7 +26,7 @@ const BorrowCard = ({ borrowData, user }) => {
     // }, [axios, productID])
 
     // NOTE : there are two types of data loading. One is borrow data one is the book data.
-    const { data, isloading } = useGetOneBookQuery(productID)
+    const { data, isLoading, isFetching } = useGetOneBookQuery(productID)
 
 
 
@@ -72,7 +70,7 @@ const BorrowCard = ({ borrowData, user }) => {
 
     }
 
-    if (!data) { return <Loading></Loading> }
+    if (isFetching || isLoading) { return <Loading></Loading> }
 
     const { img, name, category, } = data
 

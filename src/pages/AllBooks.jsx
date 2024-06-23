@@ -3,23 +3,40 @@ import Loading from "../Components/Loading";
 import Card from "../Components/Card";
 import { Link } from "react-router-dom";
 import { FaFilter } from 'react-icons/fa';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetAllBooksQuery } from "../redux/query/booksApi";
 
 
 
 const AllBooks = () => {
-    const queryClient = useQueryClient()
+    // const queryClient = useQueryClient()
     const [isAvailableOnly, setIsAvailableOnly] = useState(false)
+    const [filtered, setFiltered] = useState([])
+
+    // function handleFilter(arr) {
+    //     const newarr = arr.filter(obj => obj.qty > 0)
+    //     queryClient.setQueryData(['AllData'], newarr)
+    //     setIsAvailableOnly(true)
+    // }
+    const { data, isLoading } = useGetAllBooksQuery()
+
+    useEffect(() => {
+        setFiltered(data)
+    }, [data])
 
     function handleFilter(arr) {
-        const newarr = arr.filter(obj => obj.qty > 0)
-        queryClient.setQueryData(['AllData'], newarr)
-        setIsAvailableOnly(true)
+        if (isAvailableOnly) {
+            setFiltered(data)
+            setIsAvailableOnly(false)
+        } else {
+
+            const newarr = arr.filter(obj => obj.qty > 0)
+            setFiltered(newarr)
+            setIsAvailableOnly(true)
+        }
     }
 
 
-    const { data, isLoading } = useGetAllBooksQuery()
 
 
     if (isLoading) { return <Loading></Loading> }
@@ -39,10 +56,10 @@ const AllBooks = () => {
             {isAvailableOnly && <p className="text-center pb-4 text-3xl text-red-600">Shoing Available: {data.length} books</p>}
             <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {
-                    data?.map(obj => <Card
+                    filtered?.map(obj => <Card
                         key={obj._id}
                         data={obj}
-                        // refetch={refetch}
+                    // refetch={refetch}
                     >
                         <Link to={`/update/${obj._id}`}>
                             <button className='btn mx-auto block bg-crim w-full py-1 md:py-2 text-white  md:text-xl'>Update</button>
