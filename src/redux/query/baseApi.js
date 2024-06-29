@@ -4,9 +4,10 @@ import { logOutUser, setCredentials } from "../slice/userSlice";
 const baseQuery = fetchBaseQuery({
     baseUrl: 'https://library-v2-theta.vercel.app',
     // baseUrl: 'http://localhost:5000',
-    credentials: 'include',
+    // credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
-        const token = getState().user.token;
+        console.log(getState());
+        const token = getState().auth.token;
         if (token) {
             headers.set('authorization', `Bearer ${token}`);
         }

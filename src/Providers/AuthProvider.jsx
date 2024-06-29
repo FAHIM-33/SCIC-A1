@@ -3,7 +3,9 @@ import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, si
 import pt from 'prop-types'
 import auth from "../Config/firebase.config";
 import useAxios from "../Hooks/useAxios";
-import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../redux/slice/userSlice";
+// import toast from "react-hot-toast";
 
 export const AuthContext = createContext()
 
@@ -13,6 +15,7 @@ const AuthProvider = ({ children }) => {
     let [loading, setLoading] = useState(true)
     const axios = useAxios()
 
+    const dispatch = useDispatch()
 
     const createUser = (email, password) => {
         setLoading(true)
@@ -44,6 +47,7 @@ const AuthProvider = ({ children }) => {
 
 
     useEffect(() => {
+        dispatch(loginUser({ user: 'user1', token: 'token1' }))
         let unSubscribe = onAuthStateChanged(auth, (user) => {
             // console.log("state changed!!!")
             setUser(user)
