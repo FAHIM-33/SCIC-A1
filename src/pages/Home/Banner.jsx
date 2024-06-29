@@ -5,8 +5,14 @@ import { A11y } from 'swiper/modules';
 import 'swiper/css/navigation';
 import { AiOutlineLeftCircle, AiOutlineRightCircle } from 'react-icons/ai';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../redux/slice/userSlice';
 
 const Banner = () => {
+
+    const dispatch = useDispatch()
+
+    dispatch(loginUser({ user: 'fahim', token: "fahims token" }))
 
     const swiperRules = {
         modules: [A11y],
@@ -47,7 +53,7 @@ const Banner = () => {
                 <SwiperSlide><img src='https://i.ibb.co/qBBCvzC/banner2.jpg'></img></SwiperSlide>
                 <SwiperSlide><img src='https://i.ibb.co/phD3vcF/banner3.jpg'></img></SwiperSlide>
             </Swiper>
-            
+
 
             <div className='absolute top-1/2 md:w-1/2 z-10 flex items-center text-white -translate-y-1/2 select-none'>
                 <div className=' border-l-2 border-crim mx-2 flex flex-col p-4 space-y-4 bg-gradient-to-r from-[#000] to-[#0000002f]'>
