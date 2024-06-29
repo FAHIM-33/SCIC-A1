@@ -10,10 +10,10 @@ import AuthProvider from './Providers/AuthProvider.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import SelectedCatrgory from './pages/Category/SelectedCatrgory.jsx'
-import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
+// import {
+//   QueryClient,
+//   QueryClientProvider,
+// } from '@tanstack/react-query'
 import Details from './pages/Details.jsx'
 import AllBooks from './pages/AllBooks.jsx'
 import Read from './pages/Read.jsx'
@@ -24,7 +24,7 @@ import { Provider } from 'react-redux'
 import { store } from './redux/store/store.js'
 
 // Create a client
-const queryClient = new QueryClient()
+// const queryClient = new QueryClient()
 
 const router = createBrowserRouter([{
   path: '/',
@@ -78,13 +78,13 @@ const router = createBrowserRouter([{
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
+      {/* <QueryClientProvider client={queryClient}> */}
         <AuthProvider>
           <RouterProvider router={router}>
             <MainLayout></MainLayout>
           </RouterProvider>
         </AuthProvider>
-      </QueryClientProvider>
+      {/* </QueryClientProvider> */}
     </Provider>
   </React.StrictMode>,
 )

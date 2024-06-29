@@ -1,4 +1,4 @@
-import { useQueryClient } from "@tanstack/react-query";
+// import { useQueryClient } from "@tanstack/react-query";
 import Loading from "../Components/Loading";
 import Card from "../Components/Card";
 import { Link } from "react-router-dom";

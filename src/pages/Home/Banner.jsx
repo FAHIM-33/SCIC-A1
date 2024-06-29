@@ -10,9 +10,9 @@ import { loginUser } from '../../redux/slice/userSlice';
 
 const Banner = () => {
 
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
-    dispatch(loginUser({ user: 'fahim', token: "fahims token" }))
+    // dispatch(loginUser({ user: 'fahim', token: "fahims token" }))
 
     const swiperRules = {
         modules: [A11y],
