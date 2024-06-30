@@ -66,10 +66,10 @@ const Banner = () => {
             </div>
             <div className='absolute z-20 w-full flex items-center justify-center bg-[#6b6b6b7a] bottom-0 gap-4 p-2'>
                 <button onClick={goPrev} className=''>
-                    <AiOutlineLeftCircle className='text-crim text-5xl'></AiOutlineLeftCircle>
+                    <AiOutlineLeftCircle className='text-slate-300 text-5xl'></AiOutlineLeftCircle>
                 </button>
                 <button onClick={goNext} className=''>
-                    <AiOutlineRightCircle className='text-crim text-5xl'></AiOutlineRightCircle>
+                    <AiOutlineRightCircle className='text-slate-300 text-5xl'></AiOutlineRightCircle>
                 </button>
             </div>
         </div>
