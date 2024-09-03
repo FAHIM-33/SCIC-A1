@@ -15,12 +15,12 @@ const Footer = () => {
             <div className="flex justify-center items-center mt-4 text-sm">
             </div>
             <p className="text-center md:text-base text-xs">
-                Address: Hakimpur, bangla Hili, Dinajpur, Bangladesh
+                Address: Hakimpur, Bangla Hili, Dinajpur, Bangladesh
             </p>
             <p className="text-gray-400 text-sm text-center block mt-2">- Developer by SH Fahim -</p>
             <p className="text-center mt-2 mb-3 md:text-base text-sm">Social</p>
             <div className="flex justify-center gap-4 md:text-xl text-sm">
-                <BsFacebook />
+                <BsFacebook /> 
                 <BsInstagram />
                 <BsTwitter />
                 <BsLinkedin />
