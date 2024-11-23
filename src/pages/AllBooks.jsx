@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useGetAllBooksQuery } from "../redux/query/booksApi";
 
 
-//no use for this
+//no use for this line
 const AllBooks = () => {
     // const queryClient = useQueryClient()
     const [isAvailableOnly, setIsAvailableOnly] = useState(false)
