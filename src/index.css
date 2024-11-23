@@ -11,7 +11,7 @@
         --color-low: rgb(51, 51, 51);
         --color-mid: rgb(34, 34, 34);
         --color-high: rgb(17, 17, 17);
-        --color-crim: rgb(248, 0, 186);
+        --color-crim: crimson;
         --color-background: rgb(255, 251, 196);
         --fade: rgba(143, 143, 143, 0.176);
 
